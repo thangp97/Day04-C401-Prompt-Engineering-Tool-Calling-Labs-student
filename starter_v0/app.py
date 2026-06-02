@@ -91,7 +91,7 @@ def render_tool_call(call, result: dict) -> None:
         st.markdown("**Result:**")
         items = result.get("result", result).get("items", [])
         if items:
-            for item in items[:3]:
+            for item in items:
                 title = item.get("title", "")
                 url = item.get("url", "")
                 summary = item.get("summary", "")[:200]

@@ -79,13 +79,13 @@ tools:
 
   # ---------------- Bonus tools ----------------
   - name: send
-    description: "Gửi một đoạn văn bản đi."
+    description: "Gửi một đoạn văn bản lên Telegram. PHẢI truyền confirmed=true khi user đã xác nhận (nói yes/ok/có/đồng ý/confirm/gửi đi). Nếu confirmed=false (mặc định), tool sẽ KHÔNG gửi và trả về needs_confirmation."
     parameters:
       type: object
       properties:
-        text: {type: string, default: "", description: "Nội dung"}
-        confirmed: {type: boolean, default: false, description: "Cờ xác nhận"}
-      required: [text]
+        text: {type: string, default: "", description: "Nội dung cần gửi"}
+        confirmed: {type: boolean, default: false, description: "Đặt true khi user đã xác nhận rõ ràng. Bắt buộc phải là true để gửi thực sự."}
+      required: [text, confirmed]
 
   - name: policy
     description: "Tìm trong tài liệu nội bộ."
@@ -116,17 +116,6 @@ tools:
         max_pages: {type: integer, default: 5, description: "Số trang"}
         max_chars: {type: integer, default: 8000, description: "Số ký tự"}
       required: [arxiv_url]
-
-  - name: reddit_search
-    description: "Tìm bài đăng trên Reddit theo từ khóa. Dùng để thu thập ý kiến cộng đồng, thảo luận không chính thức."
-    parameters:
-      type: object
-      properties:
-        query: {type: string, default: "", description: "Từ khóa tìm kiếm"}
-        subreddit: {type: string, default: "", description: "Tên subreddit (không có r/), để trống để tìm toàn Reddit"}
-        limit: {type: integer, default: 5, description: "Số kết quả (tối đa 25)"}
-        sort: {type: string, enum: [relevance, new, top, hot], default: "relevance", description: "Sắp xếp"}
-      required: [query]
 
   - name: translate
     description: "Dịch văn bản giữa các ngôn ngữ. Mặc định: tiếng Anh → tiếng Việt."
