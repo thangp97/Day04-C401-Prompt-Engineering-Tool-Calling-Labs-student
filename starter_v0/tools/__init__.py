@@ -17,7 +17,6 @@ from .policy.tool import search_company_policy
 from .social_search.tool import search_tweets
 from .send.tool import send_telegram
 from .lookup.tool import web_search
-from .reddit_search.tool import search_reddit
 from .translate.tool import translate_text
 from .github_trending.tool import get_github_trending
 from .summarize.tool import summarize_items
@@ -39,7 +38,6 @@ TOOL_FUNCTIONS = {
     "policy": search_company_policy,
     "papers": arxiv_search,
     "paper_text": get_arxiv_paper_text,
-    "reddit_search": search_reddit,
     "translate": translate_text,
     "github_trending": get_github_trending,
     "summarize": summarize_items,

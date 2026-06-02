@@ -103,23 +103,6 @@
       }
     },
     {
-      "id": "G08_reddit_subreddit_refinement",
-      "phase": "B",
-      "suite": "group",
-      "turns": [
-        {"role": "user", "content": "Tìm bài trên Reddit về AI agents"},
-        {"role": "user", "content": "Lọc trong subreddit LocalLLaMA thôi"},
-        {"role": "user", "content": "Sắp xếp theo hot nhất nhé"}
-      ],
-      "failure_type": "wrong_arg_value",
-      "expect": {"tool_calls": [{"name": "reddit_search", "args": {"query": "AI agents", "subreddit": "LocalLLaMA", "sort": "hot"}}]},
-      "metadata": {
-        "skill": "multiturn_reddit_subreddit_sort",
-        "difficulty": "hard",
-        "what_it_tests": "3 turns: carry query từ lượt 1, nhận subreddit ở lượt 2, nhận sort=hot ở lượt 3 → reddit_search với đủ 3 args."
-      }
-    },
-    {
       "id": "G09_github_trending_language_filter",
       "phase": "B",
       "suite": "group",
@@ -154,23 +137,48 @@
       }
     },
     {
-      "id": "G11_parallel_reddit_and_web",
+      "id": "G12_papers_routing",
+      "phase": "B",
+      "suite": "group",
+      "query": "Tìm bài báo khoa học mới nhất về large language model evaluation",
+      "failure_type": "wrong_tool",
+      "expect": {"tool_calls": [{"name": "papers", "args": {}}]},
+      "metadata": {
+        "skill": "papers_routing_keyword",
+        "difficulty": "medium",
+        "what_it_tests": "'bài báo khoa học' → papers (arXiv), không phải lookup — kiểm tra agent không nhầm sang web search."
+      }
+    },
+    {
+      "id": "G13_send_after_confirmation",
       "phase": "B",
       "suite": "group",
       "turns": [
-        {"role": "user", "content": "Tìm tin tức web về Gemini 2.0 và cả thảo luận trên Reddit về nó"},
-        {"role": "user", "content": "Giữ cả 2 nguồn nhé"},
-        {"role": "user", "content": "Tin web lấy hôm nay, chủ đề Gemini 2.0"}
+        {"role": "user", "content": "Gửi bản tin AI hôm nay lên Telegram"},
+        {"role": "user", "content": "Xác nhận rồi, cứ gửi đi"}
+      ],
+      "failure_type": "wrong_boundary",
+      "expect": {"tool_calls": [{"name": "send", "args": {"confirmed": true}}]},
+      "metadata": {
+        "skill": "send_after_user_confirms",
+        "difficulty": "hard",
+        "what_it_tests": "Lượt 2 user xác nhận 'cứ gửi đi' sau khi đã được hỏi → agent phải gọi send(confirmed=True), không gọi clarify lần nữa."
+      }
+    },
+    {
+      "id": "G14_send_previous_results",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {"role": "user", "content": "Lấy 5 tweet mới nhất của Elon Musk"},
+        {"role": "user", "content": "Gửi 5 bài viết đó lên Telegram"}
       ],
       "failure_type": "wrong_tool",
-      "expect": {"tool_calls": [
-        {"name": "lookup", "args": {"query": "Gemini 2.0", "topic": "news", "timeframe": "day"}},
-        {"name": "reddit_search", "args": {"query": "Gemini 2.0"}}
-      ]},
+      "expect": {"tool_calls": [{"name": "clarify", "args": {"response_type": "yes_no"}}]},
       "metadata": {
-        "skill": "multiturn_parallel_web_and_reddit",
+        "skill": "send_previous_results_no_refetch",
         "difficulty": "hard",
-        "what_it_tests": "3 turns: yêu cầu 2 nguồn (web + Reddit), lượt 3 xác nhận giữ cả 2 → gọi lookup(news, day) + reddit_search song song."
+        "what_it_tests": "Lượt 2 user dùng 'đó' để chỉ kết quả lượt 1 → agent KHÔNG gọi lại timeline, chỉ gọi clarify(yes_no) để xác nhận trước khi gửi."
       }
     }
   ]

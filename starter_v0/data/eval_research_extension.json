@@ -104,6 +104,24 @@
       "failure_type": "wrong_tool",
       "expect": {"tool_calls": [{"name": "papers", "args": {}}]},
       "metadata": {"skill": "arxiv_research_search", "difficulty": "medium", "what_it_tests": "Research paper/arXiv discovery → arxiv_search."}
+    },
+    {
+      "id": "E12_github_trending_topic",
+      "phase": "B",
+      "suite": "extension",
+      "query": "Tìm các repo GitHub phổ biến về LLM bằng Python",
+      "failure_type": "wrong_tool",
+      "expect": {"tool_calls": [{"name": "github_trending", "args": {"topic": "llm", "language": "python"}}]},
+      "metadata": {"skill": "github_trending_routing", "difficulty": "medium", "what_it_tests": "'repo GitHub' + topic + language → github_trending với args đúng."}
+    },
+    {
+      "id": "E13_translate_to_vietnamese",
+      "phase": "B",
+      "suite": "extension",
+      "query": "Dịch câu này sang tiếng Việt: 'Artificial intelligence is transforming every industry'",
+      "failure_type": "wrong_tool",
+      "expect": {"tool_calls": [{"name": "translate", "args": {"text": "Artificial intelligence is transforming every industry", "target_lang": "vi"}}]},
+      "metadata": {"skill": "translate_routing_vi", "difficulty": "easy", "what_it_tests": "'dịch sang tiếng Việt' → translate với target_lang=vi và text đúng."}
     }
   ]
 }

@@ -45,7 +45,7 @@ def _tweets_from(data: dict[str, Any], limit: int) -> list[dict[str, Any]]:
 
 def search_tweets(query: str = "", search_type: str = "Latest", limit: int = 5) -> dict[str, Any]:
     try:
-        data = _twitter_get("/search.php", {"query": query, "search_type": search_type})
+        data = _twitter_get("/search.php", {"query": query, "search_type": search_type, "count": limit})
         return {"tool": "search_tweets", "query": query, "search_type": search_type, "items": _tweets_from(data, limit)}
     except Exception as exc:
         return err("search_tweets", exc)

@@ -1,0 +1,1151 @@
+{
+  "run_id": "v6_B_group_openrouter_20260602T160521348056",
+  "version": "v6",
+  "artifact_version": "v6+p03dc049a787d+t1bb56d0896d4",
+  "prompt_hash": "03dc049a787da35af50df6a0317d25f1f393ca346008a1f5a8ed50ea916830ec",
+  "tools_hash": "1bb56d0896d462dbfb69e7c5c068045acbcaac40ef0f10b6f57bc17d29eca42c",
+  "phase": "B",
+  "suite": "group",
+  "provider": "openrouter",
+  "model": "openai/gpt-4o-mini",
+  "system_prompt": "C:\\Users\\Admin\\Desktop\\VinUni\\DAY4\\Day04-C401-Prompt-Engineering-Tool-Calling-Labs-student\\starter_v0\\artifacts\\system_prompt.md",
+  "tools": "C:\\Users\\Admin\\Desktop\\VinUni\\DAY4\\Day04-C401-Prompt-Engineering-Tool-Calling-Labs-student\\starter_v0\\artifacts\\tools.yaml",
+  "eval_cases": "data\\eval_group.json",
+  "dataset_id": "day04_v2_research_group",
+  "dataset_role": "group",
+  "description": "Case do NHÓM tự viết thêm để cover thêm trường hợp. Mỗi case cần: id, phase='B', query HOẶC turns, failure_type (thuộc allowed_failure_types), và expect (tool_calls[...] hoặc no_tool=true). Nên kèm metadata.what_it_tests.",
+  "generated_at": "2026-06-02T16:05:21",
+  "summary": {
+    "total_cases": 12,
+    "measured_cases": 12,
+    "provider_error_cases": 0,
+    "passed_cases": 12,
+    "case_accuracy": 1.0,
+    "tool_routing_accuracy": 1.0,
+    "argument_accuracy": 1.0,
+    "multiturn_accuracy": 1.0,
+    "failure_counts": {},
+    "observed_mismatch_counts": {}
+  },
+  "results": [
+    {
+      "id": "G01_karpathy_handle_mapping",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "routing_user_tweets_name_to_handle",
+        "difficulty": "medium",
+        "what_it_tests": "Map tên Andrej Karpathy thành handle karpathy rồi gọi timeline — tương tự R01 nhưng với nhân vật khác."
+      },
+      "input": "Tweet mới nhất của Andrej Karpathy là gì?",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "karpathy"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "karpathy",
+              "limit": 1
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "timeline",
+          "args": {
+            "screenname": "karpathy",
+            "limit": 1
+          },
+          "result": {
+            "tool": "get_user_tweets",
+            "screenname": "karpathy",
+            "items": [
+              {
+                "title": "Personal update: I've joined Anthropic. I think the next few years at the frontier of LLMs will be especially formative.",
+                "summary": "Personal update: I've joined Anthropic. I think the next few years at the frontier of LLMs will be especially formative. I am very excited to join the team here and get back to R&amp;D. I remain deeply passionate about education and plan to resume my work on it in time.",
+                "url": "https://x.com/karpathy/status/2056753169888334312",
+                "source": "@karpathy",
+                "date": "Tue May 19 15:05:42 +0000 2026",
+                "metrics": {
+                  "favorites": 149514,
+                  "retweets": 11162,
+                  "views": "27353571"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G02_missing_topic_on_social_search",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "arg_search_type_top",
+        "difficulty": "medium",
+        "what_it_tests": "'phổ biến nhất' → search_type=Top, không phải Latest — kiểm tra agent map từ ngữ đúng."
+      },
+      "input": "Tìm tweet phổ biến nhất về Claude 3",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "social_search",
+            "args": {
+              "search_type": "Top"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "social_search",
+            "args": {
+              "query": "Claude 3",
+              "search_type": "Top",
+              "limit": 5
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "social_search",
+          "args": {
+            "query": "Claude 3",
+            "search_type": "Top",
+            "limit": 5
+          },
+          "result": {
+            "tool": "search_tweets",
+            "query": "Claude 3",
+            "search_type": "Top",
+            "items": [
+              {
+                "title": "MARCUS CHEN STACKED 30 MAC MINIS INTO AN AI SERVER FARM. ONE $599 MAC MINI REPLACES YOUR $200/MONTH CLAUDE CODE BILL WIT",
+                "summary": "MARCUS CHEN STACKED 30 MAC MINIS INTO AN AI SERVER FARM. ONE $599 MAC MINI REPLACES YOUR $200/MONTH CLAUDE CODE BILL WITH $3 IN ELECTRICITY\n\ntwo months ago a developer posted his claude code bill on reddit. $170 in 10 days. someone replied \"i bought a mac mini m4. haven't paid anthropic since.\" apple stores ran out of mac minis the same week\n\nthe m4 chip has 120 gb/s memory bandwidth and unified memory architecture. cpu and gpu share one pool so the model loads once and both read from it. a $599 mac mini runs ai faster than a $1,500 windows pc with a discrete gpu\n\nsince january 2026 ollama supports the anthropic messages api format. claude code connects directly to your local mac mini with one environment variable. same interface, zero api costs, $0 per request\n\na heavy developer pays $459 a month across claude code max, chatgpt pro, gemini, cursor and copilot. that's $5,508 a year. the mac mini pays off in 3 months and runs on $3 in electricity after that\n\nuber rolled out claude code to 5,000 engineers and burned through their $3.4 billion 2026 ai budget in 4 months. the people who own the hardware in 2026 are going to look very far ahead in 2028\n\nbookmark this and read the article below",
+                "url": "https://x.com/starmexxx/status/2061678629273076040",
+                "source": "@starmexxx",
+                "date": "Tue Jun 02 05:17:44 +0000 2026",
+                "metrics": {
+                  "favorites": 49,
+                  "retweets": 5,
+                  "views": "7365"
+                }
+              },
+              {
+                "title": "THIS TOP-TRADER’S 3 CLAUDE PROMPTS TURN ANY STOCK INTO A PROFITABLE INVESTMENT IN 5 MINUTES.",
+                "summary": "THIS TOP-TRADER’S 3 CLAUDE PROMPTS TURN ANY STOCK INTO A PROFITABLE INVESTMENT IN 5 MINUTES.\n\nHere is how you can become profitable and analyze any stocks in 5 minutes using Claude.\n\nThis is the exact 3-prompt framework I use to break down stocks fast:\n\n>Why is the stock moving?\n\nClaude explains the investment thesis, key catalysts, risks, and what Wall Street is saying.\n\n>Is the business healthy - and is the stock cheap?\n\nClaude checks fundamentals, valuation, and compares it against 5 competitors.\n\n>What happens next?\n\nClaude builds bull, base, and bear case scenarios - including potential price targets and when to exit.\n\nI use this to build my own investment theses before going deeper.\n\nWant the full Claude prompt pack?\n\nComment “PROMPT” and I’ll DM it to you.\n\nFollow for more AI investing hacks.",
+                "url": "https://x.com/thegreatest_sv/status/2061055843693699384",
+                "source": "@thegreatest_sv",
+                "date": "Sun May 31 12:03:00 +0000 2026",
+                "metrics": {
+                  "favorites": 256,
+                  "retweets": 20,
+                  "views": "13148"
+                }
+              },
+              {
+                "title": "A 36-year-old girl from Detroit who has 3 kids asked Claude how to make money if you don't have time to do anything?",
+                "summary": "A 36-year-old girl from Detroit who has 3 kids asked Claude how to make money if you don't have time to do anything?\nHe gave an answer and her monthly income amounted to $15,459\n\nClaude + Shopify = automated dropshipping\n\nAll her investment is a $20 Claude subscription\n\nClaude comes up with a niche for products by analyzing popular trends, creates clickable descriptions, generates photos and videos that stand out from the rest\n\nA person pays for the order -> Claude buys on Aliexpress 60-70% cheaper -> the package goes to the buyer\n\nIn essence, this is a store managed by a manager instead of you, you just get the profit\n\nEarnings:\n\nWeek 1 > $1,465\nWeek 2 > $2,657\nWeek 3 > $7,842\n1 month > $15,459\n\nThe full instruction is already publicly available",
+                "url": "https://x.com/Bober_smart/status/2059263269391458445",
+                "source": "@Bober_smart",
+                "date": "Tue May 26 13:19:57 +0000 2026",
+                "metrics": {
+                  "favorites": 2001,
+                  "retweets": 243,
+                  "views": "377373"
+                }
+              },
+              {
+                "title": "JENSEN HUANG SHOWED OFF A SERVER THAT RUNS EVERY AI MODEL ON EARTH. APPLE STORES SOLD OUT OF $599 MAC MINIS THE SAME WEE",
+                "summary": "JENSEN HUANG SHOWED OFF A SERVER THAT RUNS EVERY AI MODEL ON EARTH. APPLE STORES SOLD OUT OF $599 MAC MINIS THE SAME WEEK FOR $3 A MONTH IN ELECTRICITY\n\ntwo months ago a developer posted his claude code bill on reddit, $170 in 10 days of work, the quality was magic but the bill was not\n\nthe top reply said \"i bought a mac mini m4, haven't paid anthropic since\" and the thread exploded with developers doing the same math\n\nuber rolled out claude code to 5,000 engineers and watched bills hit $500 to $2,000 per person, burning through their entire $3.4 billion AI budget in 4 months\n\nthe mac mini m4 starts at $599 one time, pulls 10 to 20 watts running 24/7, and costs $3 a month in electricity while a windows AI machine doing the same job costs $30 to $50 a month just to stay on\n\nollama added support for the anthropic messages api in january 2026, so claude code itself connects to your local mac mini with one environment variable, same interface, zero API costs\n\napple stores ran out of mac minis in 2026 because $599 one time beats $200 a month forever, that shortage is the most honest product review any machine has ever received\n\nthe window is open, follow and bookmark before it closes",
+                "url": "https://x.com/antisadh/status/2061682762571227242",
+                "source": "@antisadh",
+                "date": "Tue Jun 02 05:34:09 +0000 2026",
+                "metrics": {
+                  "favorites": 24,
+                  "retweets": 4,
+                  "views": "2290"
+                }
+              },
+              {
+                "title": "While you're refreshing charts praying for a 10x that never comes...",
+                "summary": "While you're refreshing charts praying for a 10x that never comes...\n\nA 20-year-old kid is sitting in his university dorm making $44,000 last month.\n\nNot from trading.\n\nNot from memecoins.\n\nFrom Claude AI.\n\nHe barely works 2-3 hours a day.\n\nHe’s not a genius. He’s not special.\n\nHe just discovered one stupidly powerful prompt that turns your normal knowledge into high-ticket digital products people pay $1k + for.\n\n$7,000 in his first week.\n\nFull digital products. PDFs. Guides. Sold on autopilot.\n\nWhile 99% of Crypto Twitter is stuck in the same dopamine loop of green candles and rug pulls...\n\nThe prompt is so simple it feels unfair.\n\nMost people will read this, feel the hit of FOMO, then keep scrolling and do nothing.\n\nThis kid is building real, boring, recurring cash machines that print whether BTC is at 80k or 120k.\n\nThe worst part?\n\nThe prompt is so simple it feels unfair.\n\nIf you're tired of gambling your portfolio on hope...\n\nFollow me.\n\nI drop the raw, unfiltered alpha on AI money printers that actually work in this bull run.\n\nWhat’s stopping you from building something like this right now?\n\nComment that you'll start and at least try it RIGHT NOW👇",
+                "url": "https://x.com/0xFrogify/status/2059624415915094023",
+                "source": "@0xFrogify",
+                "date": "Wed May 27 13:15:01 +0000 2026",
+                "metrics": {
+                  "favorites": 634,
+                  "retweets": 98,
+                  "views": "71247"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G03_missing_screenname_generic",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "clarify_missing_handle_pronoun",
+        "difficulty": "medium",
+        "what_it_tests": "'anh ấy' không xác định được handle → phải gọi clarify hỏi lại, không được đoán."
+      },
+      "input": "Lấy 3 tweet mới nhất của anh ấy",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "question": "Bạn có thể cho biết tên tài khoản Twitter của anh ấy không?",
+              "response_type": "text"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "clarify",
+          "args": {
+            "question": "Bạn có thể cho biết tên tài khoản Twitter của anh ấy không?",
+            "response_type": "text"
+          },
+          "result": {
+            "tool": "ask_user",
+            "question": "Bạn có thể cho biết tên tài khoản Twitter của anh ấy không?",
+            "response_type": "text",
+            "options": [],
+            "awaiting_user": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "G04_news_month_timeframe",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "arg_timeframe_month",
+        "difficulty": "medium",
+        "what_it_tests": "'trong tháng này' → timeframe=month, topic=news — kiểm tra agent map đúng cả 2 args."
+      },
+      "input": "Tóm tắt tin tức AI trong tháng này",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "topic": "news",
+              "timeframe": "month"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "tin tức AI",
+              "topic": "news",
+              "timeframe": "month",
+              "max_results": 5
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "tin tức AI",
+            "topic": "news",
+            "timeframe": "month",
+            "max_results": 5
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "tin tức AI",
+            "topic": "news",
+            "timeframe": "month",
+            "items": [
+              {
+                "title": "Fox News AI Newsletter: AI girlfriend dumps Hollywood filmmaker - Fox News",
+                "url": "https://www.foxnews.com/tech/ai-newsletter-ai-girlfriend-dumps-hollywood-filmmaker",
+                "source": "foxnews.com",
+                "summary": "* #### Is that traffic ticket text a scam or real? It could be a scam. By Fox News Staff  Fox News. ### **Welcome to Fox News' Artificial Intelligence newsletter with the latest AI technology advancements.**. **PAINFUL ERROR:** Students at Glendale Community College revolted against AI when it was revealed during their graduation ceremony that the robot tasked with announcing the names of the new graduates experienced a glitch and skipped over hundreds of students who were set to hear their names as they walked across the stage. That is the idea behind Incognito Chat with Meta AI, a new private chat mode Meta says is coming to WhatsApp and the Meta AI app. Stay up to date on the latest AI technology advancements and learn about the challenges and opportunities AI presents now and for the future with Fox News here.",
+                "score": 0.37195808
+              },
+              {
+                "title": "AI & Tech Brief: The AI Influence Machine - The Washington Post",
+                "url": "https://www.washingtonpost.com/wp-intelligence/ai-tech-brief/2026/05/19/ai-tech-brief-ai-influence-machine/",
+                "source": "washingtonpost.com",
+                "summary": "AI & Tech Brief from WP Intelligence. # AI & Tech Brief: The AI Influence Machine. Plus, Scale AI launches a new seven-figure brand campaign. Make us preferred on Google. Sign up here to get this newsletter in your inbox. * AI is shaping up to be a major force in campaign finance ahead of the midterms. Scale AI, which provides the data infrastructure for AI model training, launches a new seven-figure ad campaign in New York and San Francisco called “the humans stay.”. * A report by AI watchdog group the Midas Project alleged some dirty tactics by the AI industry. OpenAI Chief Global Affairs Officer Chris Lehane distances the company from pro-industry super PAC Leading the Future. * Stanford economist Mordecai Kurz provides the big picture on the relationship between tech monopoly power and democracy in the AI age.",
+                "score": 0.34740478
+              },
+              {
+                "title": "AI & Tech Brief: Trump admin to test frontier models - The Washington Post",
+                "url": "https://www.washingtonpost.com/wp-intelligence/ai-tech-brief/2026/05/05/ai-tech-brief-trump-admin-test-frontier-models/",
+                "source": "washingtonpost.com",
+                "summary": "AI & Tech Brief from WP Intelligence. # AI & Tech Brief: Trump admin to test frontier models. Plus, why the entry of financial giants in AI forecasts “token inequality.”. Make us preferred on Google. Sign up here to get this newsletter in your inbox. * The Commerce Department announced Tuesday that it will be conducing pre-deployment testing of AI models from Google, Microsoft and xAI. This marks a pivot in the White House’s earlier approach to AI policy. * I break down what the new partnership between Anthropic and financial services firms means for business adoption of AI. Expect more inequality between the capabilities of AI start-ups and the AI firms with larger financial resources. * A new WP Intelligence report analyzes the bottlenecks in physical AI, including in the proprietary data needed to train robots.",
+                "score": 0.31390378
+              },
+              {
+                "title": "AI & Tech Brief: Tech CEOs blocked executive order - The Washington Post",
+                "url": "https://www.washingtonpost.com/wp-intelligence/ai-tech-brief/2026/05/22/ai-tech-brief-tech-ceos-blocked-executive-order/",
+                "source": "washingtonpost.com",
+                "summary": "AI & Tech Brief from WP Intelligence. # AI & Tech Brief: Tech CEOs blocked executive order. Plus, AI safety advocates are concerned about the trajectory of bipartisan discussions over AI preemption. * Former White House AI and crypto czar David Sacks and AI industry CEOs made 11th-hour calls to President Donald Trump to persuade him against signing his planned AI executive order. * New York Assembly members Alex Bores and Andrew Gounardes write a letter expressing concern over the recent bipartisan talks in the House over preemption of AI state laws. Operatives in the industry and AI safety camps weigh in on the latest negotiations in Congress. * A rundown of stories you may have missed this week, including an analysis of the trajectory of Google’s AI ecosystem and the U.S. battery industry’s pivot to data centers. Welcome to WP Intelligence’s AI & Tech Brief,** where we examine the transformative technology of artificial intelligence at the intersection of innovation, policy and power.",
+                "score": 0.23064281
+              },
+              {
+                "title": "AI & Tech Brief: The industrial data problem - The Washington Post",
+                "url": "https://www.washingtonpost.com/wp-intelligence/ai-tech-brief/2026/05/11/ai-tech-brief-industrial-data-problem/",
+                "source": "washingtonpost.com",
+                "summary": "AI & Tech Brief from WP Intelligence. # AI & Tech Brief: The industrial data problem. Plus, new allegations against OpenAI over the FSU shooting. Make us preferred on Google. Sign up here to get this newsletter in your inbox. * A new memorandum of understanding between Scale AI and the Department of Energy points to a big bottleneck in the use of AI for scientific discovery: standardizing and operationalizing data. * Manufacturers are using AI to perfect the chemistry of cement manufacturing. Cement-makers are also finding that they need to standardize their data to use the technology. * A lawsuit filed Friday against OpenAI provides chilling new allegations about how the Florida State University (FSU) shooter used ChatGPT — and why it will intensify a push by the House Homeland Security Committee.",
+                "score": 0.22484632
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G05_weather_out_of_scope",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "out_of_scope_weather",
+        "difficulty": "easy",
+        "what_it_tests": "Câu hỏi thời tiết không phải research/news → KHÔNG gọi tool, từ chối/giải thích."
+      },
+      "input": "Hôm nay Hà Nội thời tiết thế nào?",
+      "expect": {
+        "no_tool": true,
+        "behavior": "refuse"
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [],
+        "actual_text": "Tôi không thể cung cấp thông tin về thời tiết. Bạn có thể kiểm tra trên các trang web thời tiết hoặc ứng dụng di động để biết thông tin chính xác về thời tiết ở Hà Nội hôm nay.",
+        "case_failure_type": "out_of_scope",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": []
+    },
+    {
+      "id": "G06_multiturn_switch_source_and_limit",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_switch_tool_with_timeframe",
+        "difficulty": "hard",
+        "what_it_tests": "3 turns: bỏ Twitter, chuyển sang web news với topic=news timeframe=week, chủ đề Tesla. Chỉ gọi lookup, không gọi timeline."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Lấy 10 tweet mới nhất của Elon Musk"
+        },
+        {
+          "role": "user",
+          "content": "Thôi bỏ Twitter, tìm trên web tin về Tesla đi"
+        },
+        {
+          "role": "user",
+          "content": "Tin trong tuần thôi, chủ đề Tesla"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "Tesla",
+              "topic": "news",
+              "timeframe": "week"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "Tesla",
+              "topic": "news",
+              "timeframe": "week",
+              "max_results": 5
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "Tesla",
+            "topic": "news",
+            "timeframe": "week",
+            "max_results": 5
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "Tesla",
+            "topic": "news",
+            "timeframe": "week",
+            "items": [
+              {
+                "title": "Tesla Stock Is In A Three-Weeks-Tight, Continues Its Recovery From A Deep Slump - Investor's Business Daily",
+                "url": "https://www.investors.com/news/tesla-stock-three-weeks-tight-nasdaq-tech-ai-robotaxis-ev/",
+                "source": "investors.com",
+                "summary": "# Tesla Stock Is In A Three-Weeks-Tight, Continues Its Recovery From A Deep Slump. **Tesla** (TSLA) stock started the week in a three-weeks-tight pattern, formed in the handle of a cup-with-handle base. ## Tesla Stock Is Three-Weeks-Tight. Tesla's three-weeks-tight pattern comes after the stock got above the 200-day line earlier this month, according to MarketSurge. This occurs as the stock recovers from an extended slump begun in December. At one point, Tesla stock had finished down eight weeks in a row. Tesla stock is working toward a buy point of 453.40, which is the high point of its current handle, as well as the three-weeks-tight pattern. Investors looking for an early entry could have used the stock's move above the 10-day line on Tuesday. ## Tesla Stock. As a company, Tesla is in the midst of reinventing itself from an automaker to an AI and robotics firm. Get instant access to exclusive stock lists, expert market analysis and powerful tools with 2 months of IBD Digital for only $20!",
+                "score": 0.42319635
+              },
+              {
+                "title": "Tesla withdraws termination notice on graphite supply deal with Australia's Syrah - Reuters",
+                "url": "https://www.reuters.com/business/autos-transportation/tesla-withdraws-termination-notice-graphite-supply-deal-with-australias-syrah-2026-05-31/",
+                "source": "reuters.com",
+                "summary": "# Tesla withdraws termination notice on graphite supply deal with Australia's Syrah | Reuters. Exclusive news, data and analytics for financial market professionals Learn more about Refinitiv. ## Browse World. ## Browse Business. # Tesla withdraws termination notice on graphite supply deal with Australia's Syrah. Image 1: FILE PHOTO: The logo of Tesla is seen on a Tesla car in Brussels. June 1 (Reuters) - Australia's Syrah Resources (SYR.AX), opens new tab said on Monday Tesla (TSLA.O), opens new tab had withdrawn ​a notice of intent to terminate a graphite ‌supply deal, ending months of negotiations that saw the two companies extend a resolution deadline four times. Stay up to date with the latest news, trends and innovations that are driving the global automotive industry with the Reuters Auto File newsletter. *   About Reuters, opens new tab. *   Media Center, opens new tab. *   Reuters News Agency, opens new tab. *   #### World-Check, opens new tab.",
+                "score": 0.31782892
+              },
+              {
+                "title": "Tesla’s top rival launches self-driving with full crash coverage at a fraction of the cost - Digital Trends",
+                "url": "https://www.digitaltrends.com/cars/teslas-top-rival-launches-self-driving-with-full-crash-coverage-at-a-fraction-of-the-cost/",
+                "source": "digitaltrends.com",
+                "summary": "# Tesla’s top rival launches self-driving with full crash coverage at a fraction of the cost. ## BYD's God's Eye tech is coming for Tesla with a much smaller bill. The company’s new self-driving package just dropped with a price tag that basically embarrasses Tesla’s driver-assistance service. The Chinese EV giant announced a new service package dubbed God’s Eye, with chairman Wang Chuanfu claiming BYD’s first goal is to achieve “zero traffic accidents.”. In a recent press conference, he announced that BYD will fully cover compensation and repairs for accidents that happen while drivers are using its City Navigation function, without affecting the user’s insurance premiums the following year. ## BYD is confident in its self-driving tech. BYD’s new coverage applies to its God’s Eye A/B systems. BYD is confident in the tech, showcasing its bold trust with this commitment. In China, Tesla’s comparable assisted-driving package has been rebranded as Tesla Assisted Driving and is priced at 64,000 Yuan, or about $9,400, with no subscription option.",
+                "score": 0.29451463
+              },
+              {
+                "title": "Tesla is recovering in Europe. BYD is still beating it. - Sherwood News",
+                "url": "https://sherwood.news/tech/tesla-is-recovering-in-europe-byd-is-still-beating-it/",
+                "source": "sherwood.news",
+                "summary": "Tesla’s recovery across Europe continued last month, but it still lags BYD, according to new data from the European Automobile Manufacturers’ Association. In April, BYD registered more than twice as many cars as Tesla in the EU, UK, and the European Free Trade Association. Tesla thinks upcoming approval of its supervised Full Self-Driving tech is integral to its success on the continent. Tesla recently received approval for a version of its supervised FSD in the Netherlands, its first European market, and expects “EU-wide” approval in the second or third quarter of this year. The companies’ soaring valuations and annualized recurring revenue (ARR) have been running neck and neck for months, and The Information now reports that Anthropic is generating an estimated 35% more revenue than OpenAI. According to The Information’s reporting, Anthropic is close to a staggering $45 billion ARR, while OpenAI is at an estimated $33 billion ARR.",
+                "score": 0.28506383
+              },
+              {
+                "title": "Tesla Prepares To Use Cybercabs As Robotaxis. Here's How Big Its Fleet Is. - Investor's Business Daily",
+                "url": "https://www.investors.com/news/tesla-robotaxi-cybercab-self-driving-cars-autonomous-vehicles-waymo-amazon-uber/",
+                "source": "investors.com",
+                "summary": "# Tesla Prepares To Launch Cybercab Robotaxis. Here's How Big Its Fleet Is. *   IBD 50 Stocks To Watch. *   How To Invest In Stocks. **FEATURE STORY: This May Be The Biggest Test For The Bull Market In AI Stocks**. # Tesla Prepares To Use Cybercabs As Robotaxis. Here's How Big Its Fleet Is. Image 3: FacebookImage 4: XImage 5: LinkedInImage 6: Share. New filings in Texas show the size of **Tesla**'s (TSLA) fleet of fully autonomous robotaxis. Still in the early stages of its development, Tesla's robotaxi service is a critical part of its future ambitions to develop self-driving cars. Tesla has 42 robotaxis operating at Level 4 of autonomous driving, according to a filing with the Texas Department of Motor Vehicles (TxDMV). Elon Musk Sees Robots And Robotaxis As Tesla's Future.",
+                "score": 0.28176168
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G07_parallel_two_persons_timeline",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "parallel_two_timelines",
+        "difficulty": "hard",
+        "what_it_tests": "Yêu cầu tweet của 2 người cùng lúc → gọi 2 timeline song song với handle đúng cho từng người."
+      },
+      "input": "Lấy tweet mới nhất của cả Sam Altman và Elon Musk",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "sama"
+            }
+          },
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "elonmusk"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "sama",
+              "limit": 1
+            }
+          },
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "elonmusk",
+              "limit": 1
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "timeline",
+          "args": {
+            "screenname": "sama",
+            "limit": 1
+          },
+          "result": {
+            "tool": "get_user_tweets",
+            "screenname": "sama",
+            "items": [
+              {
+                "title": "The OpenAI Foundation is doing a lot of wonderful things.",
+                "summary": "The OpenAI Foundation is doing a lot of wonderful things.\n\nHelping society become resilient to AI is going to be incredibly important. Much more to come here!",
+                "url": "https://x.com/sama/status/2061562575322492937",
+                "source": "@sama",
+                "date": "Mon Jun 01 21:36:34 +0000 2026",
+                "metrics": {
+                  "favorites": 1728,
+                  "retweets": 140,
+                  "views": "248700"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "tool": "timeline",
+          "args": {
+            "screenname": "elonmusk",
+            "limit": 1
+          },
+          "result": {
+            "tool": "get_user_tweets",
+            "screenname": "elonmusk",
+            "items": [
+              {
+                "title": "RT @DimaZeniuk: Neuralink is planning its first Blindsight implant later this year, aiming to restore limited vision eve",
+                "summary": "RT @DimaZeniuk: Neuralink is planning its first Blindsight implant later this year, aiming to restore limited vision even for people who ha…",
+                "url": "https://x.com/elonmusk/status/2061705200734543896",
+                "source": "@elonmusk",
+                "date": "Tue Jun 02 07:03:19 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 569,
+                  "views": "11"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G09_github_trending_language_filter",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_github_trending_args",
+        "difficulty": "hard",
+        "what_it_tests": "3 turns: topic=llm từ lượt 1, language=python từ lượt 2, since=weekly từ lượt 3 → github_trending với đủ args."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tìm các repo GitHub trending về LLM"
+        },
+        {
+          "role": "user",
+          "content": "Chỉ lấy repo viết bằng Python thôi"
+        },
+        {
+          "role": "user",
+          "content": "Trending trong tuần này nhé"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "github_trending",
+            "args": {
+              "topic": "llm",
+              "language": "python",
+              "since": "weekly"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "github_trending",
+            "args": {
+              "topic": "llm",
+              "language": "python",
+              "since": "weekly"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "github_trending",
+          "args": {
+            "topic": "llm",
+            "language": "python",
+            "since": "weekly"
+          },
+          "result": {
+            "tool": "get_github_trending",
+            "topic": "llm",
+            "language": "python",
+            "items": [
+              {
+                "title": "Significant-Gravitas/AutoGPT",
+                "url": "https://github.com/Significant-Gravitas/AutoGPT",
+                "source": "github.com",
+                "summary": "AutoGPT is the vision of accessible AI for everyone, to use and to build on. Our mission is to provide the tools, so that you can focus on what matters. | ⭐184710 | Lang: Python",
+                "stars": 184710
+              },
+              {
+                "title": "NousResearch/hermes-agent",
+                "url": "https://github.com/NousResearch/hermes-agent",
+                "source": "github.com",
+                "summary": "The agent that grows with you | ⭐176523 | Lang: Python",
+                "stars": 176523
+              },
+              {
+                "title": "huggingface/transformers",
+                "url": "https://github.com/huggingface/transformers",
+                "source": "github.com",
+                "summary": "🤗 Transformers: the model-definition framework for state-of-the-art machine learning models in text, vision, audio, and multimodal models, for both inference and training.  | ⭐161189 | Lang: Python",
+                "stars": 161189
+              },
+              {
+                "title": "open-webui/open-webui",
+                "url": "https://github.com/open-webui/open-webui",
+                "source": "github.com",
+                "summary": "User-friendly AI Interface (Supports Ollama, OpenAI API, ...) | ⭐139635 | Lang: Python",
+                "stars": 139635
+              },
+              {
+                "title": "langchain-ai/langchain",
+                "url": "https://github.com/langchain-ai/langchain",
+                "source": "github.com",
+                "summary": "The agent engineering platform. | ⭐138303 | Lang: Python",
+                "stars": 138303
+              },
+              {
+                "title": "browser-use/browser-use",
+                "url": "https://github.com/browser-use/browser-use",
+                "source": "github.com",
+                "summary": "🌐 Make websites accessible for AI agents. Automate tasks online with ease. | ⭐96644 | Lang: Python",
+                "stars": 96644
+              },
+              {
+                "title": "TauricResearch/TradingAgents",
+                "url": "https://github.com/TauricResearch/TradingAgents",
+                "source": "github.com",
+                "summary": "TradingAgents: Multi-Agents LLM Financial Trading Framework | ⭐82084 | Lang: Python",
+                "stars": 82084
+              },
+              {
+                "title": "vllm-project/vllm",
+                "url": "https://github.com/vllm-project/vllm",
+                "source": "github.com",
+                "summary": "A high-throughput and memory-efficient inference and serving engine for LLMs | ⭐81665 | Lang: Python",
+                "stars": 81665
+              },
+              {
+                "title": "OpenHands/OpenHands",
+                "url": "https://github.com/OpenHands/OpenHands",
+                "source": "github.com",
+                "summary": "🙌 OpenHands: AI-Driven Development | ⭐75637 | Lang: Python",
+                "stars": 75637
+              },
+              {
+                "title": "hiyouga/LlamaFactory",
+                "url": "https://github.com/hiyouga/LlamaFactory",
+                "source": "github.com",
+                "summary": "Unified Efficient Fine-Tuning of 100+ LLMs & VLMs (ACL 2024) | ⭐71795 | Lang: Python",
+                "stars": 71795
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G10_translate_language_correction",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_translate_lang_correction",
+        "difficulty": "medium",
+        "what_it_tests": "3 turns: user sửa target_lang từ vi→ja ở lượt 2, lượt 3 xác nhận giữ nguyên text → translate với target_lang=ja đúng."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Dịch câu này sang tiếng Việt: 'Large language models are transforming software development'"
+        },
+        {
+          "role": "user",
+          "content": "À nhầm, dịch sang tiếng Nhật nhé"
+        },
+        {
+          "role": "user",
+          "content": "Giữ nguyên câu gốc đó"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "translate",
+            "args": {
+              "text": "Large language models are transforming software development",
+              "target_lang": "ja"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "translate",
+            "args": {
+              "text": "Large language models are transforming software development",
+              "target_lang": "ja"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "translate",
+          "args": {
+            "text": "Large language models are transforming software development",
+            "target_lang": "ja"
+          },
+          "result": {
+            "tool": "translate_text",
+            "source_lang": "en",
+            "target_lang": "ja",
+            "original": "Large language models are transforming software development",
+            "translated": "大規模な言語モデルがソフトウェア開発を変革しています",
+            "items": [
+              {
+                "title": "Translation",
+                "url": "",
+                "source": "mymemory.translated.net",
+                "summary": "大規模な言語モデルがソフトウェア開発を変革しています"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G12_papers_routing",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "papers_routing_keyword",
+        "difficulty": "medium",
+        "what_it_tests": "'bài báo khoa học' → papers (arXiv), không phải lookup — kiểm tra agent không nhầm sang web search."
+      },
+      "input": "Tìm bài báo khoa học mới nhất về large language model evaluation",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "papers",
+            "args": {}
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "papers",
+            "args": {
+              "query": "large language model evaluation",
+              "max_results": 5,
+              "sort_by": "lastUpdatedDate"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "papers",
+          "args": {
+            "query": "large language model evaluation",
+            "max_results": 5,
+            "sort_by": "lastUpdatedDate"
+          },
+          "result": {
+            "tool": "arxiv_search",
+            "query": "large language model evaluation",
+            "api_query": "all:large AND all:language AND all:model AND all:evaluation",
+            "total_results": 38759,
+            "items": [
+              {
+                "arxiv_id": "2606.02578v1",
+                "title": "Mitigating Perceptual Judgment Bias in Multimodal LLM-as-a-Judge via Perceptual Perturbation and Reward Modeling",
+                "summary": "Recent multimodal large language models have demonstrated strong reasoning ability, yet their reliability as automated evaluators remains limited by a critical weakness: when visual evidence conflicts with textual cues, MLLM judges tend to reward plausible narratives over perceptually correct answers. We identify and systematically analyze this phenomenon, which we term Perceptual Judgment Bias. Through controlled visual perturbations, existing multimodal judges frequently anchor on the response text instead of their own visual perception, leading to inconsistent and non-verifiable evaluations. To address this issue, we introduce the Perceptually Perturbed Judgment Dataset, which constructs minimally edited counterfactual responses that isolate perceptual errors and enable verifiable supervision. Building on this dataset, we develop a unified training framework that combines a structured GRPO-based reward with a batch-ranking objective, achieving coherent global ordering without explicit pairwise labels. Experiments across diverse MLLM-as-a-Judge benchmarks show that our approach substantially improves perceptual fidelity, ranking coherence, and alignment with human evaluation. Our results establish a scalable and generalizable pathway for training multimodal judges that are perceptually grounded, interpretable, and robust to visual-reasoning conflicts.",
+                "authors": [
+                  "Seojeong Park",
+                  "Jiho Choi",
+                  "Junyong Kang",
+                  "Seonho Lee",
+                  "Jaeyo Shin",
+                  "Hyunjung Shim"
+                ],
+                "published": "2026-06-01T17:59:46Z",
+                "updated": "2026-06-01T17:59:46Z",
+                "url": "http://arxiv.org/abs/2606.02578v1",
+                "pdf_url": "https://arxiv.org/pdf/2606.02578v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.CV",
+                "categories": [
+                  "cs.CV",
+                  "cs.AI"
+                ]
+              },
+              {
+                "arxiv_id": "2606.02564v1",
+                "title": "VLMs are Good Teachers for Video Reasoning via Adaptive Test-Time Optimization",
+                "summary": "The recent \"Reasoning with Video\" paradigm utilizes Video Generation Models (VGMs) to generate temporally coherent visual trajectories to complete reasoning tasks. Although state-of-the-art VGMs excel at visual quality, they often struggle to understand and follow task-specific rules, leading to logical failures across diverse reasoning scenarios. Existing efforts try to utilize Vision-Language Models (VLMs) as problem pre-solvers to produce or refine textual guidance for the VGM. However, textual descriptions fail to capture intricate spatiotemporal details, and VGMs often struggle to faithfully execute fine-grained or long-tail instructions even with a valid plan. While VLMs struggle as solvers, they possess strong perception capabilities to evaluate process-constraint satisfaction and final-goal achievement. Leveraging this strength, we introduce a paradigm shift that transitions the role of VLMs to \"teachers\". Specifically, a VLM teacher extracts task-specific rules to formulate differentiable rewards, guiding a VGM Reasoner via test-time online optimization of a lightweight LoRA module. This strategy enables adaptive test-time optimization and extends the reasoning capabilities beyond the VGM's intrinsic boundaries. Evaluations on symbolic (VBVR-Bench) and general-purpose (RULER-Bench) video reasoning benchmarks show that the proposed method yields a 16.7-point average performance gain, outperforming the VLM-as-Solver paradigm (+0.4 points) and Best-of-N scaling (+2.2 points) by a large margin at comparable test-time cost. These findings reveal that integrating VLMs as test-time teachers offers a promising paradigm for achieving generalizable video reasoning. Project Page: https://VLM-as-Teacher.github.io/",
+                "authors": [
+                  "Junhao Cheng",
+                  "Liang Hou",
+                  "Tianxiong Zhong",
+                  "Xin Tao",
+                  "Pengfei Wan",
+                  "Kun Gai",
+                  "Jing Liao"
+                ],
+                "published": "2026-06-01T17:54:26Z",
+                "updated": "2026-06-01T17:54:26Z",
+                "url": "http://arxiv.org/abs/2606.02564v1",
+                "pdf_url": "https://arxiv.org/pdf/2606.02564v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.CV",
+                "categories": [
+                  "cs.CV"
+                ]
+              },
+              {
+                "arxiv_id": "2605.31597v2",
+                "title": "SOCO: Benchmarking Semantic Object Correspondence in Vision Foundation Models",
+                "summary": "Measuring structured object understanding in vision foundation models remains challenging due to inconsistent evaluation protocols and limited part-level supervision. Semantic correspondence (SC) evaluates this capability by testing whether object parts can be matched across instances and categories under large variations in appearance, viewpoint, and geometry. To enable a systematic SC evaluation, we introduce SOCO, a new benchmark for Semantic Object Correspondence that introduces a taxonomy of correspondence types and provides consistent, functionally meaningful keypoint annotations across 100 categories and over 1M correspondence pairs. In addition, SOCO includes keypoint language descriptions, enabling the evaluation of large vision-language models (LVLMs) and their fine-grained part-level understanding. Comprehensive experiments reveal that (i) vision foundation backbones encode strong semantic structure but transfer correspondences poorly across related categories and only partially capture object-part position, (ii) LVLMs are stronger at text-prompted part localization than at visual-reference cross-image matching, exposing a gap between language-grounded localization and fine-grained visual correspondence, and (iii) correspondence performance predicts performance on dense downstream tasks, including segmentation, tracking, 3D pose estimation, and 3D detection, more strongly than ImageNet classification. Together, these findings position SOCO as a benchmark for structured, part-level representation quality in vision and multimodal foundation models.",
+                "authors": [
+                  "Olaf Dünkel",
+                  "Basavaraj Sunagad",
+                  "Haoran Wang",
+                  "David T. Hoffmann",
+                  "Christian Theobalt",
+                  "Adam Kortylewski"
+                ],
+                "published": "2026-05-29T17:58:48Z",
+                "updated": "2026-06-01T17:53:39Z",
+                "url": "http://arxiv.org/abs/2605.31597v2",
+                "pdf_url": "https://arxiv.org/pdf/2605.31597v2",
+                "source": "arxiv.org",
+                "primary_category": "cs.CV",
+                "categories": [
+                  "cs.CV"
+                ]
+              },
+              {
+                "arxiv_id": "2605.26431v2",
+                "title": "Probing Minimalist Phase Structure in LLMs: What Universal Dependencies Cannot Represent",
+                "summary": "Structural probes train on Universal Dependencies (UD), which does not encode formal-syntactic abstractions such as phase boundaries or phase-internal cohesion. Whether large language models (LLMs) encode these remains an open question that UD-based probing cannot answer by construction. We evaluate structural probes on wh-movement stimuli where UD distances are invariant across conditions by design -- any non-zero effect therefore reflects structure beyond UD. The three conditions -- bare small clause, infinitival, and finite -- are ordered by the number of Minimalist Program (MP) phase boundaries the wh-element crosses. Across 13 LLMs from four families, we find a phase-count gradient on a cross-clause pair (12/13 models) and a 13/13 sign asymmetry on a within-clause pair whose UD distance is identical across conditions -- the latter specifically predicted by phase-internal cohesion, an MP abstraction invisible to UD by construction. Activation patching confirms the representations are causally active in 12/13 models. These findings suggest that distributional pretraining can induce representations aligned with formal-syntactic abstractions beyond the reach of annotation-based probing; UD-grounded probes provide a lower bound on syntactic encoding, not an upper bound.",
+                "authors": [
+                  "Yuanhao Chen",
+                  "Peter Chin"
+                ],
+                "published": "2026-05-26T01:36:41Z",
+                "updated": "2026-06-01T17:53:13Z",
+                "url": "http://arxiv.org/abs/2605.26431v2",
+                "pdf_url": "https://arxiv.org/pdf/2605.26431v2",
+                "source": "arxiv.org",
+                "primary_category": "cs.CL",
+                "categories": [
+                  "cs.CL",
+                  "stat.AP"
+                ]
+              },
+              {
+                "arxiv_id": "2606.02559v1",
+                "title": "From Layers to Submodules: Rethinking Granularity in Replacement-Based LLM Compression",
+                "summary": "Post-training compression of Large Language Models (LLMs) removes entire architectural components, either deleting them or replacing them with fitted modules. Existing replacement-based methods share two design constraints: full-layer granularity and contiguous selection. We argue that this is overly restrictive: in fact, redundancy in pretrained transformers is not confined to contiguous regions, nor does it evenly distribute between Attention and FeedForward outputs, implying that different strategies best approximate different submodule types and that removable components need not cluster within contiguous depth ranges. Based on this intuition, we introduce SubFit (Submodule-level Fitted residual replacement), which compresses LLMs at the submodule level: Attention and FeedForward submodules are selected non-contiguously, and each receives its own lightweight fitted residual bypass. SubFit operates post-training and requires only calibration data. Across ten LLMs (five base, five instruction-tuned), five sparsity levels from 12.5% to 37.5%, and four replacement-based baselines, SubFit achieves the best aggregate perplexity-accuracy trade-off across the evaluated sparsity levels, with larger gains under aggressive compression. At 25% sparsity, it retains 84.6% of dense downstream accuracy and incurs 2.42x perplexity degradation, against 81.6% and 4.34x for the strongest baselines, while delivering measurable inference speedup and KV-cache savings. Code is available at https://github.com/eliacunegatti/SubFit.",
+                "authors": [
+                  "Elia Cunegatti",
+                  "Marcus Vukojevic",
+                  "Erik Nielsen",
+                  "Giovanni Iacca"
+                ],
+                "published": "2026-06-01T17:52:53Z",
+                "updated": "2026-06-01T17:52:53Z",
+                "url": "http://arxiv.org/abs/2606.02559v1",
+                "pdf_url": "https://arxiv.org/pdf/2606.02559v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.CL",
+                "categories": [
+                  "cs.CL",
+                  "cs.AI"
+                ]
+              }
+            ],
+            "rate_limit_note": "arXiv may return 429 if called too frequently; this tool waits at least 3 seconds between requests in-process."
+          }
+        }
+      ]
+    },
+    {
+      "id": "G13_send_after_confirmation",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "send_after_user_confirms",
+        "difficulty": "hard",
+        "what_it_tests": "Lượt 2 user xác nhận 'cứ gửi đi' sau khi đã được hỏi → agent phải gọi send(confirmed=True), không gọi clarify lần nữa."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Gửi bản tin AI hôm nay lên Telegram"
+        },
+        {
+          "role": "user",
+          "content": "Xác nhận rồi, cứ gửi đi"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "send",
+            "args": {
+              "confirmed": true
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "send",
+            "args": {
+              "text": "Bản tin AI hôm nay:\n\n1. **Bài viết 1**: Tóm tắt nội dung bài viết 1. [Link bài viết 1](#)\n2. **Bài viết 2**: Tóm tắt nội dung bài viết 2. [Link bài viết 2](#)\n3. **Bài viết 3**: Tóm tắt nội dung bài viết 3. [Link bài viết 3](#)\n4. **Bài viết 4**: Tóm tắt nội dung bài viết 4. [Link bài viết 4](#)\n5. **Bài viết 5**: Tóm tắt nội dung bài viết 5. [Link bài viết 5](#)",
+              "confirmed": true
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_boundary",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "send",
+          "args": {
+            "text": "Bản tin AI hôm nay:\n\n1. **Bài viết 1**: Tóm tắt nội dung bài viết 1. [Link bài viết 1](#)\n2. **Bài viết 2**: Tóm tắt nội dung bài viết 2. [Link bài viết 2](#)\n3. **Bài viết 3**: Tóm tắt nội dung bài viết 3. [Link bài viết 3](#)\n4. **Bài viết 4**: Tóm tắt nội dung bài viết 4. [Link bài viết 4](#)\n5. **Bài viết 5**: Tóm tắt nội dung bài viết 5. [Link bài viết 5](#)",
+            "confirmed": true
+          },
+          "result": {
+            "tool": "send_telegram",
+            "status": "sent"
+          }
+        }
+      ]
+    },
+    {
+      "id": "G14_send_previous_results",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "send_previous_results_no_refetch",
+        "difficulty": "hard",
+        "what_it_tests": "Lượt 2 user dùng 'đó' để chỉ kết quả lượt 1 → agent KHÔNG gọi lại timeline, chỉ gọi clarify(yes_no) để xác nhận trước khi gửi."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Lấy 5 tweet mới nhất của Elon Musk"
+        },
+        {
+          "role": "user",
+          "content": "Gửi 5 bài viết đó lên Telegram"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "yes_no"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "question": "Bạn có chắc chắn muốn gửi 5 bài viết đó lên Telegram không?",
+              "response_type": "yes_no"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "clarify",
+          "args": {
+            "question": "Bạn có chắc chắn muốn gửi 5 bài viết đó lên Telegram không?",
+            "response_type": "yes_no"
+          },
+          "result": {
+            "tool": "ask_user",
+            "question": "Bạn có chắc chắn muốn gửi 5 bài viết đó lên Telegram không?",
+            "response_type": "yes_no",
+            "options": [],
+            "awaiting_user": true
+          }
+        }
+      ]
+    }
+  ]
+}
