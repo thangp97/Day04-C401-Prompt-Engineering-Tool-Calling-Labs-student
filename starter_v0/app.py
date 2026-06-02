@@ -29,7 +29,7 @@ VERSIONS = ["v0", "v1", "v2", "v3", "v3new", "v4", "v5", "v6"]
 _TOOL_GROUPS = {
     "Core":  ["clarify", "timeline", "social_search", "lookup", "fetch", "format"],
     "Bonus": ["send", "policy", "papers", "paper_text"],
-    "New":   ["reddit_search", "github_trending", "translate", "summarize"],
+    "New":   ["github_trending", "translate", "summarize"],
 }
 
 _GROUP_COLORS = {
@@ -41,7 +41,6 @@ _GROUP_COLORS = {
 SAMPLE_PROMPTS = [
     ("🌐", "Tin tức AI hôm nay có gì nổi bật?"),
     ("🐦", "Tweet mới nhất của Sam Altman là gì?"),
-    ("🔴", "Mọi người đang bàn gì về ChatGPT trên Reddit?"),
     ("💻", "Tìm repo GitHub trending về AI agents viết bằng Python tuần này"),
     ("📄", "Tìm paper mới nhất về LLM agents trên arXiv"),
     ("🌍", "Dịch câu này sang tiếng Nhật: AI agents are the future"),
@@ -654,7 +653,7 @@ def main() -> None:
     st.markdown("""
     <div class="hero-wrap">
         <div class="hero-title"><span class="gradient-text">Research Agent</span></div>
-        <div class="hero-sub">WEB &nbsp;·&nbsp; TWITTER &nbsp;·&nbsp; REDDIT &nbsp;·&nbsp; GITHUB &nbsp;·&nbsp; ARXIV &nbsp;·&nbsp; TRANSLATE &nbsp;·&nbsp; TELEGRAM</div>
+        <div class="hero-sub">WEB &nbsp;·&nbsp; TWITTER &nbsp;·&nbsp; GITHUB &nbsp;·&nbsp; ARXIV &nbsp;·&nbsp; TRANSLATE &nbsp;·&nbsp; TELEGRAM</div>
         <div class="hero-pills">
             <span class="hero-pill pill-indigo">⚡ 14 tools</span>
             <span class="hero-pill pill-cyan">🤖 GPT-4o-mini</span>
