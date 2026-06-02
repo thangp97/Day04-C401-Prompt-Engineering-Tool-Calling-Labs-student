@@ -5,3 +5,7 @@ v0,team,baseline,v0+peb1c8179815b+t6cdb53d5d7b8,eb1c8179815b,6cdb53d5d7b8,Baseli
 v1,team,system_prompt.md,v1+p62ef4988601c+t6cdb53d5d7b8,62ef4988601c,6cdb53d5d7b8,Removed 3 bad rules guess to clarify + send-without-confirm + single-step; added routing + boundary + parallel rules,Fixing dont-ask/guess + send-without-confirm + single-tool limit causes 5 failures R08/R10/R11/R12/R13,0.75,0.95,v1_B_base_openrouter_20260602T124902719765.json
 ,,,,,,,,,,
 v2,team,system_prompt.md,v2+p6c788ef88fb4+t6cdb53d5d7b8,6c788ef88fb4,6cdb53d5d7b8,Added explicit tool-switching rule: bo X / chuyen sang Y call ONLY tool Y not both,M06 fails because agent calls both social_search+lookup when user says switch; adding switch rule prevents extra call,0.95,1,v2_B_base_openrouter_20260602T125158112768.json
+,,,,,,,,,,
+v3,team,system_prompt.md,v3+p9dad5900468a+t6cdb53d5d7b8,9dad5900468a,6cdb53d5d7b8,Extended out-of-scope examples (weather/cooking/sports) + added policy_area routing rules for all 5 policy areas,G05 fails weather→lookup; E01/E08 fail policy_area=all instead of specific area; fixing both in one prompt pass,1.0,1.0,v3_B_base_openrouter_20260602T141705296291.json
+,,,,,,,,,,
+v4,team,system_prompt.md+tools.yaml,v4+p76f06d2347d8+td97d527cc93d,76f06d2347d8,d97d527cc93d,Added parallel research+policy rule; added 4 new tools (reddit_search/translate/github_trending/summarize); built Streamlit UI,E06 regression: agent stops after policy without calling lookup; parallel rule fixes; new tools for bonus,1.0,1.0,v4_B_base_openrouter_20260602T143448702683.json

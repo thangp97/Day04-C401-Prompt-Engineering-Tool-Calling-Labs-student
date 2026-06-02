@@ -116,3 +116,54 @@ tools:
         max_pages: {type: integer, default: 5, description: "Số trang"}
         max_chars: {type: integer, default: 8000, description: "Số ký tự"}
       required: [arxiv_url]
+
+  - name: reddit_search
+    description: "Tìm bài đăng trên Reddit theo từ khóa. Dùng để thu thập ý kiến cộng đồng, thảo luận không chính thức."
+    parameters:
+      type: object
+      properties:
+        query: {type: string, default: "", description: "Từ khóa tìm kiếm"}
+        subreddit: {type: string, default: "", description: "Tên subreddit (không có r/), để trống để tìm toàn Reddit"}
+        limit: {type: integer, default: 5, description: "Số kết quả (tối đa 25)"}
+        sort: {type: string, enum: [relevance, new, top, hot], default: "relevance", description: "Sắp xếp"}
+      required: [query]
+
+  - name: translate
+    description: "Dịch văn bản giữa các ngôn ngữ. Mặc định: tiếng Anh → tiếng Việt."
+    parameters:
+      type: object
+      properties:
+        text: {type: string, default: "", description: "Văn bản cần dịch (tối đa 500 ký tự)"}
+        target_lang: {type: string, default: "vi", description: "Mã ngôn ngữ đích (vi, en, zh, ja, ko, fr, de, es)"}
+        source_lang: {type: string, default: "en", description: "Mã ngôn ngữ nguồn"}
+      required: [text]
+
+  - name: github_trending
+    description: "Tìm các GitHub repository phổ biến theo chủ đề. Dùng để khám phá dự án AI/ML mã nguồn mở."
+    parameters:
+      type: object
+      properties:
+        topic: {type: string, default: "machine-learning", description: "GitHub topic tag (vd: llm, ai-agents, machine-learning)"}
+        language: {type: string, default: "", description: "Ngôn ngữ lập trình (vd: python, typescript). Để trống để tìm tất cả"}
+        since: {type: string, enum: [daily, weekly, monthly], default: "daily", description: "Khoảng thời gian trending"}
+      required: [topic]
+
+  - name: summarize
+    description: "Tóm tắt danh sách kết quả từ các tool khác thành bản tin ngắn gọn có đánh số. Dùng trước format hoặc send để gọn dữ liệu."
+    parameters:
+      type: object
+      properties:
+        items:
+          type: array
+          default: []
+          description: "Danh sách items từ lookup/timeline/papers/fetch (mỗi item có title, url, source, summary)"
+          items:
+            type: object
+            properties:
+              title: {type: string}
+              url: {type: string}
+              source: {type: string}
+              summary: {type: string}
+        max_points: {type: integer, default: 5, description: "Số điểm tối đa trong tóm tắt"}
+        headline: {type: string, default: "", description: "Tiêu đề bản tin"}
+      required: [items]
